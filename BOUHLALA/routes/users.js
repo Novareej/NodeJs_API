@@ -10,11 +10,10 @@ const router = require('express').Router();
  router.get('/:id', async function(req, res, next) {
   res.send(await usersRepo.getUsers(req.params.id))
 });
- module.exports = router;
  
  router.post('/',async function(req,res,next){
-  const { role } = req.user;
-  if(role == "admin" || role == "author"){
+ 
+  if(req.user.role == "admin" || req.user.role == "author"){
     const user = req.body
     const retrievedUser = await usersRepo.getUserByEmail(user.email) 
     if(!retrievedUser){
@@ -27,3 +26,26 @@ const router = require('express').Router();
   }
 })
 
+router.put('/',async function(req,res,next){
+  
+  if(req.user == "admin" || req.user == "author"){
+    const user = req.body
+  res.send(await usersRepo.updateUser(user))
+  }else{
+    res.status(403).json({ message: 'unauthorised access!' })
+  }
+})
+
+router.delete('/:id',async function(req,res,next){
+  
+  if(req.user == "admin" || req.user == "author"){
+    const id = req.params.id
+    await usersRepo.deleteUser(id)
+    res.send({id})
+  }else{
+    res.status(403).json({ message: 'unauthorised access!' })
+  }
+  
+})
+module.exports = router;
+ 

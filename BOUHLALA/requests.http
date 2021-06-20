@@ -1,0 +1,68 @@
+###Test get requests
+### get all users with pagination first page
+GET http://localhost:8080/users
+
+###### get all users with pagination second page
+GET http://localhost:8080/users?page=2&limit=10
+
+### get single user by id
+GET http://localhost:8080/users/1
+
+###Test post requests
+###Create User
+POST http://localhost:8080/users
+Content-Type: application/json
+
+{
+    "username":"userV22",
+    "email":"userv22@gmail.com",
+    "password":"userv22pwd",
+    "role":"guest"
+
+}
+
+###update user
+PUT http://localhost:3000/users
+Content-Type: application/json
+
+{
+    "id":21,
+    "username":"userV23",
+    "email":"userv22@gmail.com",
+    "password":"userv22pwd",
+    "role":"guest"
+
+}
+
+###Delete user
+
+DELETE  http://localhost:8080/users/21
+
+### list all articles
+GET http://localhost:8080/articles
+
+### get user Articles
+
+GET http://localhost:8080/users/articles/1
+
+### list of articles and nbcomments associated
+GET http://localhost:8080/comments
+
+### get article comments
+GET http://localhost:8080/articles/comments/1
+
+### list all tags
+GET http://localhost:8080/tags
+
+
+### article with it's comments
+GET http://localhost:8080/articles/1/comments
+
+### authenticate
+POST http://localhost:8080/users/authenticate
+Content-Type: application/json
+
+{
+    "email":"Cara99@hotmail.com",
+    "password":"1_qn5DxI1ozMAXv"
+}
